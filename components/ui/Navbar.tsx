@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
 
 
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Typography, Link  } from '@mui/material'
 import {MenuOutlined} from '@mui/icons-material';
-import Link from 'next/link';
+// import Link from 'next/link';
 
 export const Navbar = () => {
     return (
@@ -16,7 +16,7 @@ export const Navbar = () => {
                 </IconButton>
 
                 <NextLink href='/' passHref>
-                    <Link href={'/'} >
+                    <Link>
                         <Typography variant='h6' color='white'>Cookie-Master</Typography>
                     </Link>
                 </NextLink>

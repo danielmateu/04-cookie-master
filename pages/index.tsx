@@ -4,7 +4,7 @@ import { Layout } from '../components/layouts'
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <Layout >
       <h1>Cookie Master</h1>
     </Layout>
   )
