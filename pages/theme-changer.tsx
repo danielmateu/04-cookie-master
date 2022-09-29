@@ -5,11 +5,15 @@ import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
-const ThemeChangerPage: FC = (props) => {
+interface Props { 
+  theme: string;
+}
 
-  console.log({props})
+const ThemeChangerPage: FC<Props> = ({theme}) => {
 
-  const [currentTheme, setCurrentTheme] = useState('light');
+  // console.log({props})
+
+  const [currentTheme, setCurrentTheme] = useState(theme);
 
   const onThemeChange = (event: ChangeEvent<HTMLInputElement>) => {
 
@@ -69,11 +73,11 @@ export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
   const {theme = 'light', name = 'No name'} = req.cookies;
 
-  
+  const validTheme = ['light', 'dark', 'custom'];
 
   return {
     props: {
-      theme,
+      theme:validTheme.includes(theme)? theme:'dark',
       name,
     }
   }
