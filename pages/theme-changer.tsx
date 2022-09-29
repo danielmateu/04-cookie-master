@@ -1,10 +1,11 @@
-import React, { useState, ChangeEvent, useEffect } from 'react'
-import { Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
+import React, { useState, ChangeEvent, useEffect, FC } from 'react'
+import { Button, Card, CardContent, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 import { Layout } from '../components/layouts';
+import axios from 'axios';
 
 import Cookies from 'js-cookie';
 
-const ThemeChangerPage = (props) => {
+const ThemeChangerPage: FC = (props) => {
 
   console.log({props})
 
@@ -20,11 +21,18 @@ const ThemeChangerPage = (props) => {
 
     localStorage.setItem('theme', selectedTheme);
     Cookies.set('theme', selectedTheme);
+  };
+
+  const onClick = async() => {
+    const {data} = await axios.get('/api/hello');
+
+    console.log({data});
   }
+
 
   useEffect(() => {
     console.log('LocalStorage: ', localStorage.getItem('theme'));
-
+    console.log('Cookies', Cookies.get('theme'));
 
   }, [])
 
@@ -43,6 +51,10 @@ const ThemeChangerPage = (props) => {
               <FormControlLabel value={'custom'} control={<Radio />} label="Custom" />
             </RadioGroup>
           </FormControl>
+
+          <Button
+            onClick={onClick}
+          >Solicitud</Button>
         </CardContent>
       </Card>
     </Layout>
@@ -53,13 +65,16 @@ const ThemeChangerPage = (props) => {
 // - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from 'next'
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
 
+  const {theme = 'light', name = 'No name'} = req.cookies;
 
+  
 
   return {
     props: {
-      theme: 'Hola',
+      theme,
+      name,
     }
   }
 }
