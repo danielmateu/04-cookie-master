@@ -5,6 +5,7 @@ import Head from "next/head"
 import { Navbar } from "../ui"
 
 
+/* Defining the props that the component will receive. */
 interface Props { 
     children?:any
 }
